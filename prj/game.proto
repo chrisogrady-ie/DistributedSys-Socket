@@ -1,0 +1,22 @@
+//py -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. game.proto
+//py -m pip install grpcio
+//py -m pip install grpcio-tools
+
+syntax = "proto3";
+
+//possibly insert code here to use with thread functions for rabbit mq sending message
+service GameRound {
+  rpc guess_letter (ClientInput) returns (ServerOutput) {}
+}
+message ClientInput {
+  //server expects to receive
+  string single_guess = 1;
+  string player_name = 2;
+}
+
+message ServerOutput {
+  //server will return a message and flag(bool) if all words have been guessed
+  //these can be accessed in the client through response.x
+  string message = 1;
+  bool game_continue = 2;
+}
